@@ -72,12 +72,11 @@ jobs:
         with:
           name: ${{ env.image_name }}
           path: ${{ env.images_dir }}/*.7z
-      - name: Upload images to Releases
-        if: ${{ github.event_name == 'release' && success() }}
-        uses: svenstaro/upload-release-action@2.2.0
+      - name: Upload firmware to release
+        uses: softprops/action-gh-release@v1
+        env:
+         GITHUB_TOKEN: ${{ github.token }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.images_dir }}/*.zip
-          tag: ${{ github.ref }}
-          overwrite: true
-          file_glob: true
+         files: |
+           ${{ env.firmware_dir }}/*.trx
+         tag_name: ${{ steps.compile.outputs.release_tag }}
