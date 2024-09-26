@@ -79,5 +79,5 @@ jobs:
          GITHUB_TOKEN: ${{ github.token }}
         with:
          files: |
-           ${{ env.firmware_dir }}/*.trx
+           ${{ env.firmware_dir }}/*.zip
          tag_name: ${{ steps.compile.outputs.release_tag }}
